@@ -1,0 +1,57 @@
+/* {
+    border: 1px solid blue;
+}*/ 
+
+.malzeme {
+    width: 31%;
+    gap: 1rem;
+}
+
+.ekle {
+    display: flex;
+    width: 30%;
+    justify-content: space-between;
+}
+.ekle button {
+    width: 100%;
+    height: 20%;
+    background-color: rgb(127, 139, 17);
+}
+.ekle p {
+    display: flex;
+    width: 10rem;
+    justify-content: center;
+    height: 20%;
+    align-items: center;
+    border: 1px solid #D9D9D9
+}
+.siparis-toplamı {
+    display: flex;
+    flex-direction: column;
+}
+.siparis-container {
+    padding: 9% 10% 0% 10%;
+}
+.secimler {
+    display: flex;
+    justify-content: space-between;
+}
+.toplam {
+    display: flex;
+    justify-content: space-between;
+    padding: 0rem 0rem 1rem 0rem;
+}
+.siparis-button {
+    width: 100%;
+    height: 3rem;
+    background: #FDC913;
+    border-radius: 6px;
+}
+.ekle button {
+    background: #FDC913;
+    border-radius: 10%;
+}
+
+
+
+
