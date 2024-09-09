@@ -37,6 +37,13 @@ export default function Form() {
     console.log(formData);
   }, [formData]);
 
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log('Submit function called');
+  }
+
+  
+
 
     const Header = styled.header`
     display: flex;
@@ -189,8 +196,9 @@ export default function Form() {
     margin-right: 10px;
     }
     `
-    const Isim = styled.div`
+    const Form = styled.form`
     padding: 2rem 0rem;
+    width: 73.5%;
     h3 {
     font-family: Barlow;
     font-size: 20px;
@@ -204,7 +212,6 @@ export default function Form() {
     padding: 1rem;
 
     `
-
 
     const Siparisnotu = styled.div`
     h3 {
@@ -468,12 +475,17 @@ export default function Form() {
     </Malzemesecim>
     </Ekmalzemeler>
 
-    <Isim>
+    <Form  onSubmit={handleSubmit}>
     <div>
     <h3>İsim</h3>
-    <Input/>
+    <Input
+    name="isim"
+    value={formData.isim}
+    onChange={handleChange}
+    type="text"
+    />
     </div>
-    </Isim>
+    </Form>
 
     <Siparisnotu>
     <h3>Sipariş Notu</h3>
