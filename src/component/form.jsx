@@ -1,10 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
+let initialForm = {
+  isim: "",
+  boyut: "",
+  hamur: "",
+  malzeme: [],
+  not: "",
+  adet: 1
+}
 
 export default function Form() {
+
+  
+  const [ formData, setFormData] = useState(initialForm);
+
+  
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target;
+  
+    if (type === 'checkbox') {
+      const updatedMalzemeler = checked ? formData.malzeme.includes(value)  ? formData.malzeme : [...formData.malzeme, value]  : formData.malzeme.filter(malzeme => malzeme !== value);
+  
+      setFormData({
+        ...formData, malzeme: updatedMalzemeler
+      });
+    } else {
+      setFormData({
+        ...formData, [name]: value
+      });
+    }
+  };
+
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
+
 
     const Header = styled.header`
     display: flex;
@@ -14,7 +46,6 @@ export default function Form() {
     flex-direction: column;
     color:black;
     border-bottom: 1px solid #C20608
-    box-shadow: 0px 9px 150px -30px #00000017;
     p {
     display: flex;
     justify-content: flex-end;
@@ -133,6 +164,10 @@ export default function Form() {
     line-height: 56px;
     text-align: left;
     }
+    .malzeme {
+    width: 31%;
+    gap: 1rem;
+    }
     `
     const Malzemesecim = styled.div`
     display: flex;
@@ -154,6 +189,23 @@ export default function Form() {
     margin-right: 10px;
     }
     `
+    const Isim = styled.div`
+    padding: 2rem 0rem;
+    h3 {
+    font-family: Barlow;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24.76px;
+    text-align: left;
+    }
+    `
+    const Input = styled.input`
+    width: 100%;
+    padding: 1rem;
+
+    `
+
+
     const Siparisnotu = styled.div`
     h3 {
     font-family: Barlow;
@@ -175,6 +227,24 @@ export default function Form() {
     display: flex;
     gap: 1rem;
     padding: 2rem 0rem;
+    .ekle {
+    display: flex;
+    width: 30%;
+    justify-content: space-between;
+    }
+    .ekle button {
+    width: 100%;
+    height: 20%;
+    background: #FDC913;
+    }
+    .ekle p {
+    display: flex;
+    width: 10rem;
+    justify-content: center;
+    height: 20%;
+    align-items: center;
+    border: 1px solid #D9D9D9
+}
     `;
     const Siparisver = styled.div`
     width: 70%;
@@ -200,6 +270,33 @@ export default function Form() {
      .secim-p {
      color: #5F5F5F;
      }
+     .siparis-toplamı {
+    display: flex;
+    flex-direction: column;
+    } 
+     .siparis-container {
+    padding: 9% 10% 0% 10%;
+    }
+    .secimler {
+    display: flex;
+    justify-content: space-between;
+    }
+    .toplam {
+    display: flex;
+    justify-content: space-between;
+    padding: 0rem 0rem 1rem 0rem;
+    }
+    .siparis-button {
+    width: 100%;
+    height: 3rem;
+    background: #FDC913;
+    border-radius: 6px;
+    }
+    .ekle button {
+    background: #FDC913;
+    border-radius: 10%;
+    }
+
     `;
     
   return (
@@ -210,8 +307,8 @@ export default function Form() {
       <h1>Teknolojik Yemekler</h1>
       <p>Ana Sayfa - Sipariş Oluştur</p>
     </Header>
-    <Formsection>
 
+    <Formsection>
     <PizzaBilgi>
         <h4> 
         Position Absolute Acı Pizza
@@ -236,38 +333,46 @@ export default function Form() {
     <div >
           <input
             type="radio"
-            id="option1"
-            name="options"
-            value="A"
+            id="kucuk"
+            name="boyut"
+            value="kucuk"
+            onChange={handleChange}
           />
-          <label htmlFor="option1">Küçük</label>
+          <label htmlFor="kucuk">Küçük</label>
         </div>
         <div>
           <input
             type="radio"
-            id="option2"
-            name="options"
-            value="B"
+            id="orta"
+            name="boyut"
+            value="orta"
+            onChange={handleChange}
           />
-          <label htmlFor="option2">Orta</label>
+          <label htmlFor="orta">Orta</label>
         </div>
         <div>
           <input
             type="radio"
-            id="option3"
-            name="options"
-            value="C"
+            id="buyuk"
+            name="boyut"
+            value="buyuk"
+            onChange={handleChange}
           />
-          <label htmlFor="option3">Büyük</label>
+          <label htmlFor="buyuk">Büyük</label>
         </div>
     </Boyutsec>
+
     <Hamursec>
     <h3>Hamur Seç <span>*</span></h3>
-      <Select >
-        <option value="">Hamur Kalınlığı</option>
-        <option value="A">İnce Hamur</option>
-        <option value="B">Orta Hamur</option>
-        <option value="C">Kalın Hamur</option>
+      <Select 
+      name="hamur" 
+      value={formData.hamur}
+      onChange={handleChange}
+      >
+        <option value="" >Hamur Kalınlığı</option>
+        <option value="ince">İnce Hamur</option>
+        <option value="orta">Orta Hamur</option>
+        <option value="kalın">Kalın Hamur</option>
       </Select>
     </Hamursec>
     </Boyutvehamur>
@@ -281,69 +386,94 @@ export default function Form() {
       <label className='malzeme'>
         <input
           type="checkbox"
-          value="A"
+          value="Pepperoni"
+          name="malzeme"
+          onChange={handleChange}
         />
         Pepperoni
       </label>
       <label className='malzeme'>
         <input
           type="checkbox"
-          value="B"
+          value="Sosis"
+          name="malzeme"
+          onChange={handleChange}
         />
         Sosis
       </label>
       <label className='malzeme'>
         <input
           type="checkbox"
-          value="C"
+          value="Soğan"
+          name="malzeme"
+          onChange={handleChange}
         />
         Soğan
       </label>
       <label className='malzeme'>
         <input
           type="checkbox"
-          value="C"
+          value="Mısır"
+          name="malzeme"
+          onChange={handleChange}
         />
         Mısır
       </label>
       <label className='malzeme'>
         <input
           type="checkbox"
-          value="C"
+          value="Domates"
+          name="malzeme"
+          onChange={handleChange}
         />
         Domates
       </label>
       <label className='malzeme'>
         <input
           type="checkbox"
-          value="C"
+          value="Sucuk"
+          name="malzeme"
+          onChange={handleChange}
         />
         Sucuk
       </label>
       <label className='malzeme'>
         <input
           type="checkbox"
-          value="C"
+          value="Biber"
+          name="malzeme"
+          onChange={handleChange}
         />
         Biber
       </label>
       <label className='malzeme'>
         <input
           type="checkbox"
-          value="C"
+          value="Ananas"
+          name="malzeme"
+          onChange={handleChange}
         />
         Ananas
       </label>
-      <label className='malzeme'>
+      <label className='malzeme' >
         <input
           type="checkbox"
-          value="C"
+          value="Sarımsak"
+          name="malzeme"
+          onChange={handleChange}
         />
         Sarımsak
       </label>
       
     </Malzemesecim>
     </Ekmalzemeler>
+
+    <Isim>
+    <div>
+    <h3>İsim</h3>
+    <Input/>
+    </div>
+    </Isim>
 
     <Siparisnotu>
     <h3>Sipariş Notu</h3>
@@ -378,11 +508,7 @@ export default function Form() {
     <button className='siparis-button'>Sipariş Ver</button>
     </Siparisver>
     </Hesapozeti>
-
     </Formsection>
-    
-
-
     </>
 
 

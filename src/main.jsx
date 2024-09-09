@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import Form from './component/form'
-import "./component/form.css"
+import Anasayfa from "./component/anasayfa"
 
 
 createRoot(document.getElementById('root')).render(
@@ -9,3 +9,4 @@ createRoot(document.getElementById('root')).render(
     <Form />
   </StrictMode>,
 )
+
