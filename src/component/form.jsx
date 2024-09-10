@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-let initialForm = {
-  isim: "",
-  boyut: "",
-  hamur: "",
-  malzeme: [],
-  not: "",
-  adet: 1
-}
+import { FormFeedback } from 'reactstrap';
+import axios from 'axios';
 
 const Header = styled.header`
 display: flex;
@@ -142,7 +135,7 @@ width: 31%;
 gap: 1rem;
 }
 `
-const Malzemesecim = styled.div`
+const Malzemesecim = styled.form`
 display: flex;
 flex-wrap: wrap;
 padding: 2rem 0rem;
@@ -269,35 +262,36 @@ border-radius: 10%;
 
 `;
 
+let initialForm = {
+  isim: "",
+  boyut: "",
+  hamur: "",
+  malzeme: [],
+  not: "",
+  adet: 1
+}
+
+let errorMessages = {
+  isim:"en az 3 karakter giriniz",
+  boyut: "Pizza boyutu seçiniz",
+  hamur: "Hamur kalınlığı seçiniz",
+  malzeme: "En az 3 malzeme seçiniz",
+};
+
 
 export default function Form() {
 
   
   const [ formData, setFormData] = useState(initialForm);
   const [ errors, setErrors ] = useState({
-    isim:"en az 3 karakter giriniz",
-    boyut: "Pizza boyutu seçini",
-    hamur: "Hamur kalınlığı seçiniz",
-    malzeme: "En az 3 malzeme seçiniz",
+    isim: false,
+    boyut: false,
+    hamur: false,
+    malzeme: false,
   })
   const [isValid, setIsValid] = useState(false);
-
-  
-  const handleChange = (event) => {
-    const { name, value, type, checked } = event.target;
-  
-    if (type === 'checkbox') {
-      const updatedMalzemeler = checked ? formData.malzeme.includes(value)  ? formData.malzeme : [...formData.malzeme, value]  : formData.malzeme.filter(malzeme => malzeme !== value);
-  
-      setFormData({
-        ...formData, malzeme: updatedMalzemeler
-      });
-    } else {
-      setFormData({
-        ...formData, [name]: value
-      });
-    }
-  };
+  const [malzemeTutari, setMalzemeTutari] = useState(0)
+  const herMalzeme = 5;
 
   const sayiyiArtir = () => {
     setFormData(prevFormData => ({...prevFormData, adet: prevFormData.adet + 1
@@ -308,21 +302,53 @@ export default function Form() {
     setFormData(prevFormData => ({...prevFormData, adet: prevFormData.adet > 1 ? prevFormData.adet - 1 : 1
     }));
   };
+
   
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target;
+  
+    if (type === 'checkbox') {
+      const updatedMalzemeler = checked ? formData.malzeme.includes(value)  ? formData.malzeme : [...formData.malzeme, value]  : formData.malzeme.filter(malzeme => malzeme !== value);
+  
+      setFormData({...formData, malzeme: updatedMalzemeler});
+
+      setMalzemeTutari(updatedMalzemeler.length * herMalzeme);
+
+    } else if (name=="isim") {
+        if(value.trim().length >= 3) {
+          setErrors({...errors, [name]: false})
+        } else {
+          setErrors({...errors, [name]: true})
+        }
+        setFormData({
+          ...formData, [name]: value
+        });
+
+    } else {
+      setFormData({
+        ...formData, [name]: value
+      });
+    }
+  };
 
   useEffect(() => {
-    console.log(formData);
+    const isNameValid = formData.isim.trim().length >= 3;
+    const isMalzemeValid = formData.malzeme.length >= 4;
+
+    if (isNameValid && isMalzemeValid) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
   }, [formData]);
 
 
   function handleSubmit(event) {
+    if(!isValid) return;
     event.preventDefault();
   }
 
-  
 
-
-   
   return (
    
 
@@ -406,7 +432,7 @@ export default function Form() {
         <h3>Ek Malzemeler</h3>
         <a>En Fazla 10 malzeme seçebilirsiniz. 5₺</a>
         </div>
-    <Malzemesecim>
+    <Malzemesecim onSubmit={handleSubmit}>
       <label className='malzeme'>
         <input
           type="checkbox"
@@ -488,7 +514,7 @@ export default function Form() {
         />
         Sarımsak
       </label>
-      
+      {errors.malzeme && <FormFeedback>{errorMessages.malzeme}</FormFeedback>}
     </Malzemesecim>
     </Ekmalzemeler>
 
@@ -501,7 +527,9 @@ export default function Form() {
     value={formData.isim}
     onChange={handleChange}
     type="text"
+    aria-invalid={errors.isim}
     />
+    {errors.isim && <FormFeedback>{errorMessages.isim}</FormFeedback>}
     </form>
     </Isım>
 
@@ -548,16 +576,16 @@ export default function Form() {
       <h4>Sipariş Toplamı</h4>
       <div className='secimler'>
         <p>Seçimler</p>
-        <p  className='secim-p'>25.00₺</p>
+        <p  className='secim-p'>{malzemeTutari.toFixed(2)}₺</p>
       </div>
       <div className='toplam'>
         <p  className='toplam-p'>Toplam</p>
-        <p  className='toplam-p'>110.50₺</p>
+        <p  className='toplam-p'>{(85.50 + malzemeTutari).toFixed(2)}₺</p>
       </div>
     </div>
     
     </div>
-    <button className='siparis-button'>Sipariş Ver</button>
+    <button className='siparis-button' disabled={!isValid}>Sipariş Ver</button>
     </Siparisver>
     </Hesapozeti>
     </Formsection>
