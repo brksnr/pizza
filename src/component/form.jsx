@@ -106,8 +106,8 @@ font-size: 16px;
 font-weight: 500;
 line-height: 45px;
 text-align: left;
-}`
-
+}
+`
 const Hamursec = styled.div`
 gap: 1rem;
 h3{
@@ -162,7 +162,7 @@ input {
 margin-right: 10px;
 }
 `
-const Divdeneme = styled.div`
+const Isım = styled.div`
 padding: 2rem 0rem;
 width: 73.5%;
 h3 {
@@ -176,9 +176,7 @@ text-align: left;
 const Input = styled.input`
 width: 100%;
 padding: 1rem;
-
-`
-
+`;
 const Siparisnotu = styled.form`
 h3 {
 font-family: Barlow;
@@ -195,7 +193,6 @@ text-align: left;
 
 }
 `;
-
 const Hesapozeti = styled.div`
 display: flex;
 gap: 1rem;
@@ -301,16 +298,25 @@ export default function Form() {
       });
     }
   };
+
+  const sayiyiArtir = () => {
+    setFormData(prevFormData => ({...prevFormData, adet: prevFormData.adet + 1
+    }));
+  };
+
+  const sayiyiAzalt = () => {
+    setFormData(prevFormData => ({...prevFormData, adet: prevFormData.adet > 1 ? prevFormData.adet - 1 : 1
+    }));
+  };
   
+
   useEffect(() => {
     console.log(formData);
-    
   }, [formData]);
 
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log('Form submit edildi');
   }
 
   
@@ -486,7 +492,7 @@ export default function Form() {
     </Malzemesecim>
     </Ekmalzemeler>
 
-    <Divdeneme  onSubmit={handleSubmit}>
+    <Isım >
     <form  onSubmit={handleSubmit}>
     <h3>İsim</h3>
     <Input
@@ -497,11 +503,10 @@ export default function Form() {
     type="text"
     />
     </form>
-    </Divdeneme>
+    </Isım>
 
-    <Siparisnotu onSubmit={handleSubmit}>
-    <h3>Sipariş Notu</h3>
-      <form className='text-area'>
+    <Siparisnotu onSubmit={handleSubmit} className='text-area'>
+    <h3>Sipariş Notu</h3>  
         <textarea
           id="not"
           name="not"
@@ -510,13 +515,32 @@ export default function Form() {
           placeholder="Siparişine eklemek istediğin bir not var mı?"
           onChange={handleChange}
           value={formData.not}
-        />
-      </form>
+        /> 
     </Siparisnotu>
 
     <Hesapozeti>
       
-    <div className='ekle'><button>-</button><p>1</p><button>+</button> </div>
+    <div className='ekle'>
+      <button
+      onSubmit={handleSubmit}
+      id="adet"
+      name="adet"
+      onClick={sayiyiAzalt}
+      onChange={handleChange}
+      value={formData.adet}
+      type="button"
+      >-</button>
+      <p>{formData.adet}</p>
+      <button
+      onSubmit={handleSubmit}
+      id="adet"
+      name="adet"
+      onClick={sayiyiArtir}
+      onChange={handleChange}
+      value={formData.adet}
+      type="button"
+      >+</button>
+    </div>
     
     <Siparisver>
     <div className='siparis-container'>
