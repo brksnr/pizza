@@ -209,7 +209,7 @@ align-items: center;
 border: 1px solid #D9D9D9
 }
 `;
-const Siparisver = styled.div`
+const Siparisver = styled.form`
 width: 70%;
 border: 1px solid slategray;
 border-radius: 3%;
@@ -346,6 +346,14 @@ export default function Form() {
   function handleSubmit(event) {
     if(!isValid) return;
     event.preventDefault();
+
+    axios.post('https://reqres.in/api/pizza', formData)
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
   }
 
 
@@ -570,7 +578,7 @@ export default function Form() {
       >+</button>
     </div>
     
-    <Siparisver>
+    <Siparisver onSubmit={handleSubmit}>
     <div className='siparis-container'>
     <div className='siparis-toplamı'>
       <h4>Sipariş Toplamı</h4>
