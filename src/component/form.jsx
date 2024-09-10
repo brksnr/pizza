@@ -101,7 +101,7 @@ line-height: 45px;
 text-align: left;
 }
 `
-const Hamursec = styled.div`
+const Hamursec = styled.form`
 gap: 1rem;
 h3{
 font-family: Barlow;
@@ -334,8 +334,10 @@ export default function Form() {
   useEffect(() => {
     const isNameValid = formData.isim.trim().length >= 3;
     const isMalzemeValid = formData.malzeme.length >= 4;
+    const isBoyutSelected = formData.boyut !== '';
+    const isHamurSelected = formData.hamur !== '';
 
-    if (isNameValid && isMalzemeValid) {
+    if (isNameValid && isMalzemeValid && isBoyutSelected && isHamurSelected) {
       setIsValid(true);
     } else {
       setIsValid(false);
