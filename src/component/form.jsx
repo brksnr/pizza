@@ -278,6 +278,18 @@ let errorMessages = {
   malzeme: "En az 3 malzeme seçiniz",
 };
 
+const boyutFiyatlari = {
+  kucuk: 150,
+  orta: 250,
+  buyuk: 300
+};
+
+const hamurFiyatlari = {
+  ince: 0,
+  orta: 50,
+  kalın: 100
+};
+
 
 export default function Form() {
 
@@ -291,6 +303,8 @@ export default function Form() {
   })
   const [isValid, setIsValid] = useState(false);
   const [malzemeTutari, setMalzemeTutari] = useState(0)
+  const [toplamFiyat, setToplamFiyat] = useState(85.50);
+  
   const herMalzeme = 5;
 
   const sayiyiArtir = () => {
@@ -344,6 +358,14 @@ export default function Form() {
     }
   }, [formData]);
 
+  useEffect(() => {
+    const boyutFiyat = boyutFiyatlari[formData.boyut] || 0;
+    const hamurFiyat = hamurFiyatlari[formData.hamur] || 0;
+    const malzemeFiyat = malzemeTutari;
+  
+    setToplamFiyat(85.50 + boyutFiyat + hamurFiyat + malzemeFiyat);
+  }, [formData.boyut, formData.hamur, malzemeTutari]);
+
 
   function handleSubmit(event) {
     if(!isValid) return;
@@ -388,7 +410,7 @@ export default function Form() {
     </PizzaBilgi>
 
     <Boyutvehamur>
-    <Boyutsec>
+    <Boyutsec data-cy="boyut-input">
     <h3>Boyut Seç <span>*</span></h3>
     <div >
           <input
@@ -422,7 +444,7 @@ export default function Form() {
         </div>
     </Boyutsec>
 
-    <Hamursec>
+    <Hamursec data-cy="hamur-input">
     <h3>Hamur Seç <span>*</span></h3>
       <Select 
       name="hamur" 
@@ -442,7 +464,7 @@ export default function Form() {
         <h3>Ek Malzemeler</h3>
         <a>En Fazla 10 malzeme seçebilirsiniz. 5₺</a>
         </div>
-    <Malzemesecim onSubmit={handleSubmit}>
+    <Malzemesecim data-cy="malzeme-input" onSubmit={handleSubmit}>
       <label className='malzeme'>
         <input
           type="checkbox"
@@ -532,6 +554,7 @@ export default function Form() {
     <form  onSubmit={handleSubmit}>
     <h3>İsim</h3>
     <Input
+     data-cy="ad-input"
     id="isim"
     name="isim"
     value={formData.isim}
@@ -590,12 +613,12 @@ export default function Form() {
       </div>
       <div className='toplam'>
         <p  className='toplam-p'>Toplam</p>
-        <p  className='toplam-p'>{(85.50 + malzemeTutari).toFixed(2)}₺</p>
+        <p  className='toplam-p'>{toplamFiyat.toFixed(2)}₺</p>
       </div>
     </div>
     
     </div>
-    <button className='siparis-button' disabled={!isValid}>Sipariş Ver</button>
+    <button data-cy="siparis-input" className='siparis-button' disabled={!isValid}>Sipariş Ver</button>
     </Siparisver>
     </Hesapozeti>
     </Formsection>
