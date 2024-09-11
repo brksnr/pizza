@@ -1,20 +1,27 @@
 import { createRoot } from "react-dom/client";
 
-import './App.css'
+import { Route, Router, Routes, Switch } from "react-router-dom/cjs/react-router-dom.min";
+import Form from "./component/form";
+import Onay from "./component/onay";
+import Home from "./component/home";
 
 function App() {
 
+
   return (
-    <>
-      <div>
-      <h1>Ana Sayfa</h1>
-      <p>Burada bir butona tıklayarak başka bir sayfaya yönlendirme yapabilirsiniz.</p>
-      {/* Yönlendirme için Link veya button */}
-      <Link to="/about">
-        <button>About Sayfasına Git</button>
-      </Link>
-    </div>
-    </>
+    
+    <Switch>
+    <Route path="/home" exact>
+    <Home/>
+    </Route>
+    <Route path="/onay"  exact>
+    <Onay/>
+    </Route>
+    <Route path="/form" exact>
+    <Form/>
+    </Route>
+    
+    </Switch>
   )
 }
 

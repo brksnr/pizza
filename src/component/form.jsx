@@ -3,6 +3,7 @@ import styled from "styled-components";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FormFeedback } from 'reactstrap';
 import axios from 'axios';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 const Header = styled.header`
 display: flex;
@@ -618,7 +619,7 @@ export default function Form() {
     </div>
     
     </div>
-    <button data-cy="siparis-input" className='siparis-button' disabled={!isValid}>Sipariş Ver</button>
+    <Link to="/onay"><button data-cy="siparis-input" className='siparis-button' disabled={!isValid}>Sipariş Ver</button></Link>
     </Siparisver>
     </Hesapozeti>
     </Formsection>
