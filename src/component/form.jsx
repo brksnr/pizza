@@ -23,9 +23,22 @@ font-weight: 400;
 line-height: 28.8px;
 text-align: left;
 }
+
+@media (max-width: 540px) {
+   border: 2px solid orange;
+}
+
+
 `
 const Formsection = styled.section`
 padding: 0% 34%;
+
+@media (max-width: 540px) {
+   border: 2px solid orange;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
 `
 const PizzaBilgi = styled.div`
 padding: 2rem 0rem;
@@ -57,17 +70,34 @@ font-size: 16px;
 font-weight: 400;
 line-height: 28.8px;
 text-align: left;
+
 }
+@media (max-width: 540px) {
+   border: 2px solid orange;
+    width: 250%;
+    
+}
+
 `
 const Fiyat = styled.div`
 display: flex;
 justify-content: space-between;
 align-items: center;
+
+
+
+
 `
 const Puan = styled.div`
 display: flex;
 justify-content: space-between;
 width: 20%;
+color: #5F5F5F;
+
+@media (max-width: 540px) {
+   border: 2px solid orange;    
+}
+
 `
 const Boyutvehamur = styled.div`
 display: flex;
@@ -82,9 +112,13 @@ line-height: 24.76px;
 text-align: left;
 color: #D80027;
 }
+@media (max-width: 540px) {
+   border: 2px solid orange;
+   width: 250%;
+}
+
 `
 const Boyutsec = styled.form`
-
 
 h3{
 font-family: Barlow;
@@ -101,15 +135,24 @@ font-weight: 500;
 line-height: 45px;
 text-align: left;
 }
+@media (max-width: 540px) {
+   border: 2px solid orange;
+   display: flex;
+   flex-direction: column;
+}
 `
 const Hamursec = styled.form`
 gap: 1rem;
 h3{
-font-family: Barlow;
+  font-family: Barlow;
 font-size: 20px;
 font-weight: 600;
 line-height: 24.76px;
 text-align: left;
+}
+@media (max-width: 540px) {
+   border: 2px solid orange;
+  padding-right: 10%;
 }
 `
 const Select = styled.select`
@@ -134,6 +177,11 @@ text-align: left;
 .malzeme {
 width: 31%;
 gap: 1rem;
+}
+
+@media (max-width: 540px) {
+   border: 2px solid orange; 
+   width: 250%;   
 }
 `
 const Malzemesecim = styled.form`
@@ -166,6 +214,10 @@ font-weight: 600;
 line-height: 24.76px;
 text-align: left;
 }
+@media (max-width: 540px) {
+   border: 2px solid orange; 
+   width: 250%;   
+}
 `
 const Input = styled.input`
 width: 100%;
@@ -184,7 +236,10 @@ font-family: Barlow;
 font-size: 14px;
 font-weight: 500;
 text-align: left;
-
+}
+@media (max-width: 540px) {
+   border: 2px solid orange; 
+   width: 250%;   
 }
 `;
 const Hesapozeti = styled.div`
@@ -208,6 +263,10 @@ justify-content: center;
 height: 20%;
 align-items: center;
 border: 1px solid #D9D9D9
+}
+@media (max-width: 540px) {
+   border: 2px solid orange; 
+   width: 250%;   
 }
 `;
 const Siparisver = styled.form`
