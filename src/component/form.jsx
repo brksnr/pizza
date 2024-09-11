@@ -356,10 +356,10 @@ export default function Form() {
   
   const [ formData, setFormData] = useState(initialForm);
   const [ errors, setErrors ] = useState({
-    isim: false,
-    boyut: false,
-    hamur: false,
-    malzeme: false,
+    isim: "",
+    boyut: "",
+    hamur: "",
+    malzeme: [],
   })
   const [isValid, setIsValid] = useState(false);
   const [malzemeTutari, setMalzemeTutari] = useState(0)

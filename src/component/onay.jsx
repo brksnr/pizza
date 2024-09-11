@@ -3,13 +3,20 @@ import styled, { createGlobalStyle } from "styled-components";
 
 
 const Wrapper = styled.body`
-width: 1600px;
-height: 783px;
+width: 1980px;
+height: 1000px;
 display: flex;
 justify-content: center;
 padding-top: 8rem;
-
 background: #CE2829;
+@media (max-width: 540px) {
+    width: 510px;
+
+
+max-width: fit-content;
+    
+    padding: 40%;
+    }
 ;
   `
 

@@ -10,8 +10,13 @@ const Header = styled.section`
     border: 1px black solid;
     display: flex;
     justify-content: center;
-    width: 1600px;
-    height: 783px;
+    width: 1980px;
+    height: 980px;
+    @media (max-width: 540px) {
+    max-width: fit-content;
+    background-position: top;
+    padding: 10%;
+    }
      `;
      const Bilgi = styled.div`
      display: flex;
@@ -37,6 +42,11 @@ const Header = styled.section`
     text-align: center;
     color: #FFFFFF;
      }
+     @media (max-width: 540px) {
+        padding-top: 10rem;
+        display: flex;
+        align-items: center;
+       }
      `
 
 export default function Home() {
