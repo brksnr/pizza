@@ -51,8 +51,9 @@ const Header = styled.section`
      display: flex;
      
      justify-content: center;
-     border: 1px solid black;
+   
      gap: 6.3rem;
+     padding: 2rem 2rem;
 
      .menu-content {
       display: flex;
@@ -64,7 +65,7 @@ const Header = styled.section`
      const Hero = styled.section`
      width: 1920px;
      height: 760px;
-     border: 5px solid green;
+     
     display: flex;
     justify-content: center;
     
@@ -73,10 +74,9 @@ const Header = styled.section`
      
      `
      const Uclumenu = styled.div`
-     padding-top: 7rem;
+     padding-top: 5rem;
      display: flex;
      height: 57%;
-     border: 1px solid green;
      width: 70%;
      justify-content: space-between;
      .ikili {
@@ -122,7 +122,7 @@ const Header = styled.section`
           position: absolute;
           width: 254px;
 height: 88px;
-top: 157%;
+top: 154%;
 left: 54%;
 gap: 0px;
 opacity: 0px;
@@ -136,7 +136,7 @@ text-align: left;
           position: absolute;
           width: 138px;
 height: 48px;
-top: 171%;
+top: 168%;
 left: 54%;
 padding: 3px 18px 0px 18px;
 gap: 0px;
@@ -149,13 +149,7 @@ line-height: 40px;
 text-align: center;
 color: #CE2829;
 background: #FFFFFF;
-
-
-
-
-
         }
-
      }
      .image-container {
         position: relative;
@@ -175,7 +169,6 @@ border-radius: 2%;
       font-weight: 700;
       line-height: 72px;
       text-align: left;
-      border: 1px solid black;
      }
     .position {
         position: absolute;
@@ -213,23 +206,16 @@ color: #CE2829;
       }
 
     }
-    
-
-
-     
      `
      const Heroiki = styled.section`
      width: 1920px;
      height: 260px;
-     
      display: flex;
      justify-content: center;
      align-items: center;
      background: #FAF7F2;
-
      `
     const Slogan = styled.div`
-
 display: flex;
 align-items: center;
 flex-direction: column;
@@ -426,15 +412,15 @@ return (
                 <img src='./src/assets/Iteration-2-assets/cta/kart-1.png'/>
                 <div className="lezzetus"><p>Özel</p><p>Lezzetus</p></div>
                 <div className="position"><p>Position:Absolute Acı Burger</p> </div>
-                <div><button className='siparis-ver'><p>SİPARİŞ VER</p></button></div>
+                <div><Link to="form"><button className='siparis-ver'><p>SİPARİŞ VER</p></button></Link></div>
         </div>
         <div className='ikili'>
                 <img src='./src/assets/Iteration-2-assets/cta/kart-2.png'/>
                 <div className="hackathlon"><p>Hackathlon</p><p>Burger Menü</p></div>
-                <div><button className='hackathlon-siparis-ver'><p>SİPARİŞ VER</p></button></div>
+                <div><Link to="form"><button className='hackathlon-siparis-ver'><p>SİPARİŞ VER</p></button></Link></div>
                 <img src='./src/assets/Iteration-2-assets/cta/kart-3.png'/>
                 <div className="npm-kurye"><p>Çoooook hızlı</p><p>npm gibi kurye</p></div>
-                <div><button className='npm-siparis-ver'><p>SİPARİŞ VER</p></button></div>
+                <div><Link to="form"><button className='npm-siparis-ver'><p>SİPARİŞ VER</p></button></Link></div>
         </div>
         </Uclumenu>
         

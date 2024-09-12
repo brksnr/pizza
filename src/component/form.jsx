@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { FormFeedback } from 'reactstrap';
 import axios from 'axios';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const Header = styled.header`
 display: flex;
@@ -322,14 +321,7 @@ border-radius: 10%;
 
 `;
 
-let initialForm = {
-  isim: "",
-  boyut: "",
-  hamur: "",
-  malzeme: [],
-  not: "",
-  adet: 1
-}
+
 
 let errorMessages = {
   isim:"en az 3 karakter giriniz",
@@ -351,7 +343,18 @@ const hamurFiyatlari = {
 };
 
 
-export default function Form() {
+export default function Form({setLiftFormData}) {
+
+  let initialForm = {
+    isim: "",
+    boyut: "",
+    hamur: "",
+    malzeme: [],
+    not: "",
+    adet: 1,
+    toplam: 0,
+    malzemeTutarı:0
+  }
 
   
   const [ formData, setFormData] = useState(initialForm);
@@ -359,13 +362,15 @@ export default function Form() {
     isim: "",
     boyut: "",
     hamur: "",
-    malzeme: [],
+    malzeme: "",
   })
   const [isValid, setIsValid] = useState(false);
   const [malzemeTutari, setMalzemeTutari] = useState(0)
   const [toplamFiyat, setToplamFiyat] = useState(85.50);
   
   const herMalzeme = 5;
+
+  const onay = useHistory();
 
   const sayiyiArtir = () => {
     setFormData(prevFormData => ({...prevFormData, adet: prevFormData.adet + 1
@@ -380,24 +385,24 @@ export default function Form() {
   
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
-  
     if (type === 'checkbox') {
       const updatedMalzemeler = checked ? formData.malzeme.includes(value)  ? formData.malzeme : [...formData.malzeme, value]  : formData.malzeme.filter(malzeme => malzeme !== value);
   
       setFormData({...formData, malzeme: updatedMalzemeler});
 
       setMalzemeTutari(updatedMalzemeler.length * herMalzeme);
+ 
 
-    } else if (name=="isim") {
-        if(value.trim().length >= 3) {
-          setErrors({...errors, [name]: false})
+    } else if (name==="isim") {
+        if(value.trim().length <= 3) {
+          
+          setErrors({...errors, isim : errorMessages.isim})
         } else {
-          setErrors({...errors, [name]: true})
+          setErrors({...errors, isim : ""})
         }
         setFormData({
           ...formData, [name]: value
         });
-
     } else {
       setFormData({
         ...formData, [name]: value
@@ -422,21 +427,27 @@ export default function Form() {
     const boyutFiyat = boyutFiyatlari[formData.boyut] || 0;
     const hamurFiyat = hamurFiyatlari[formData.hamur] || 0;
     const malzemeFiyat = malzemeTutari;
-  
+
+    
     setToplamFiyat(85.50 + boyutFiyat + hamurFiyat + malzemeFiyat);
+    setFormData({...formData, toplam: toplamFiyat, malzemeTutarı:malzemeTutari})
+    
   }, [formData.boyut, formData.hamur, malzemeTutari]);
 
-
+  
   function handleSubmit(event) {
+    
     if(!isValid) return;
     event.preventDefault();
-
+    
     axios.post('https://reqres.in/api/pizza', formData)
       .then(function (response) {
+        onay.push("/onay")
         console.log(response.data);
+        setLiftFormData(response.data);
       })
       .catch(function (error) {
-        console.error(error);
+        console.error("adasdasdadas:", error);
       });
   }
 
@@ -611,7 +622,7 @@ export default function Form() {
     </Ekmalzemeler>
 
     <Isım >
-    <form  onSubmit={handleSubmit}>
+    
     <h3>İsim</h3>
     <Input
      data-cy="ad-input"
@@ -620,10 +631,10 @@ export default function Form() {
     value={formData.isim}
     onChange={handleChange}
     type="text"
-    aria-invalid={errors.isim}
+    invalid={errors.isim ? "true" : "false"}
     />
-    {errors.isim && <FormFeedback>{errorMessages.isim}</FormFeedback>}
-    </form>
+    {errors.isim.length > 0 && <p>{errors.isim}</p>}
+   
     </Isım>
 
     <Siparisnotu onSubmit={handleSubmit} className='text-area'>
@@ -678,13 +689,11 @@ export default function Form() {
     </div>
     
     </div>
-    <Link to="/onay"><button data-cy="siparis-input" className='siparis-button' disabled={!isValid}>Sipariş Ver</button></Link>
+    
+    <button onClick={handleSubmit} type="submit" data-cy="siparis-input" className='siparis-button' disabled={!isValid}>Sipariş Ver</button>
     </Siparisver>
     </Hesapozeti>
     </Formsection>
     </>
-
-
-
   );
 }
