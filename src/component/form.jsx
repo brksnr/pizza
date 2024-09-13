@@ -4,6 +4,94 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
+const ContainerTwo = styled.section`
+max-width: 100%;
+max-width: 100%;
+display: flex;
+justify-content: center;
+background: #1A1A1A;
+
+.main-container{
+    width: 50%;
+    margin: 3rem 0rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    
+}
+.tekno-yemek{
+
+color:white;
+margin-bottom: 5rem;
+h1{
+    font-family: Londrina Solid;
+font-size: 50px;
+font-weight: 400;
+line-height: 50px;
+text-align: left;
+padding-bottom: 2rem;
+}
+p{
+    font-family: Barlow;
+font-size: 18px;
+font-weight: 400;
+line-height: 32.4px;
+text-align: left;
+
+}
+.iletisim-icon {
+    display: flex;
+  align-items: center;
+}
+.iletisim {
+    img {
+        margin-right: 10px;
+    }
+  }
+}
+.hot-menu{
+    
+    color:white;
+    margin-top: 2rem;
+    h4{
+        font-family: Barlow;
+font-size: 24px;
+font-weight: 500;
+line-height: 32.11px;
+text-align: left;
+padding-bottom: 2rem;
+    }
+    p{
+        font-family: Barlow;
+font-size: 18px;
+font-weight: 400;
+line-height: 32.4px;
+text-align: left;
+
+    }
+}
+.instagram{
+    
+    color:white;
+    margin: 2rem 0rem 2rem;
+    row-gap: 1rem;
+    h4 {
+        font-family: Barlow;
+font-size: 24px;
+font-weight: 500;
+line-height: 32.11px;
+text-align: left;
+padding-bottom: 1rem;
+
+
+    }
+    
+    .resimler{
+       display: grid;
+       grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+}
+`
 const Header = styled.header`
 display: flex;
 background: #CE2829;
@@ -11,18 +99,21 @@ padding: 50px;
 text-align: center;
 flex-direction: column;
 color:black;
-border-bottom: 1px solid #C20608
-p {
-display: flex;
-justify-content: flex-end;
-width: 47%;
-font-family: Barlow;
-font-size: 16px;
-font-weight: 400;
-line-height: 28.8px;
-text-align: left;
+border-bottom: 1px solid #C20608;
+img {
+  width: 30%;
+  position: absolute;
+  left: 40rem;
+  top: 9.9rem;
 }
-
+h1{
+  font-family: Londrina Solid;
+font-size: 50px;
+font-weight: 400;
+line-height: 50px;
+text-align: center;
+color: #FFFFFF;
+}
 @media (max-width: 540px) {
    border: 2px solid orange;
 }
@@ -30,7 +121,9 @@ text-align: left;
 
 `
 const Formsection = styled.section`
-padding: 0% 34%;
+padding: 15% 34% 0rem;
+margin-bottom: 1rem;
+background: #FAF7F2;
 
 @media (max-width: 540px) {
    border: 2px solid orange;
@@ -39,9 +132,12 @@ padding: 0% 34%;
    align-items: center;
 }
 `
+const Form2 = styled.section`
+padding: 1rem 40rem 5rem;
+`
 const PizzaBilgi = styled.div`
 padding: 2rem 0rem;
-
+background: #FAF7F2;
 h4 {
 font-family: Barlow;
 font-size: 22px;
@@ -103,6 +199,7 @@ display: flex;
 justify-content: space-between;
 width: 80%;
 padding: 1.5rem 0rem;
+
 span {
 font-family: Barlow;
 font-size: 20px;
@@ -119,6 +216,12 @@ color: #D80027;
 `
 const Boyutsec = styled.form`
 
+display: flex;
+flex-direction: column;
+.deneme {
+  display: flex;
+  gap: 2rem;
+}
 h3{
 font-family: Barlow;
 font-size: 20px;
@@ -127,12 +230,24 @@ line-height: 24.76px;
 text-align: left;
 }
 label {
-padding: 0rem 1rem;
+bottom: 4.5rem;
+left: 2.3rem;
 font-family: Barlow;
 font-size: 16px;
 font-weight: 500;
 line-height: 45px;
-text-align: left;
+position: relative;
+}
+input {
+  display: inline-block;
+  appearance: none;
+  width: 5rem;
+  height: 5rem;
+  background: #FAF7F2;
+  border-radius: 5rem;
+  &:checked {
+    background: #FFEECC;
+  }
 }
 @media (max-width: 540px) {
    border: 2px solid orange;
@@ -142,6 +257,23 @@ text-align: left;
 `
 const Hamursec = styled.form`
 gap: 1rem;
+padding-left: 3rem;
+select {
+  border-radius: .5rem;
+  appearance: none;
+  width: 16rem;
+  height: 4rem;
+  background: #FAF7F2;
+  border-style: none;
+  font-family: Barlow;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 56px;
+  text-align: left;
+  color: #5F5F5F;
+  text-align: center;
+
+}
 h3{
   font-family: Barlow;
 font-size: 20px;
@@ -200,12 +332,43 @@ text-align: left;
 color: #5F5F5F;
 }
 input {
-margin-right: 10px;
+margin-right: .1rem;
+width: 45px;
+height: 45px;
+appearance: none;
+background-color: #FAF7F2;
+&:checked {
+background-color:#FDC913;
+}
+&:checked::after {
+content: '✔';
+font-family: Barlow;
+font-size: 25px;
+font-weight: 700;
+line-height: 28.8px;
+text-align: center;
+color: #000000;
+display: flex;
+justify-content: center;
+padding-top: .5rem;
+}
+border-radius: .5rem;
+}
+.malzeme {
+ display: flex;
+ align-items: center;
 }
 `
 const Isım = styled.div`
 padding: 2rem 0rem;
 width: 73.5%;
+input {
+  appearance: none;
+  border-radius: 1rem;
+  width: 130%;
+  background: #FAF7F2;
+  border: none;
+}
 h3 {
 font-family: Barlow;
 font-size: 20px;
@@ -234,7 +397,12 @@ textarea {
 font-family: Barlow;
 font-size: 14px;
 font-weight: 500;
-text-align: left;
+
+appearance: none;
+  border-radius: 1rem;
+  width: 96%;
+  background: #FAF7F2;
+  border: none;
 }
 @media (max-width: 540px) {
    border: 2px solid orange; 
@@ -254,6 +422,8 @@ justify-content: space-between;
 width: 100%;
 height: 20%;
 background: #FDC913;
+border-radius: .3rem;
+border: none;
 }
 .ekle p {
 display: flex;
@@ -272,6 +442,9 @@ const Siparisver = styled.form`
 width: 70%;
 border: 1px solid slategray;
 border-radius: 3%;
+border: 1px solid #D9D9D9;
+background: #FAF7F2;
+
 h4 {
 font-family: Barlow;
 font-size: 20px;
@@ -314,11 +487,6 @@ height: 3rem;
 background: #FDC913;
 border-radius: 6px;
 }
-.ekle button {
-background: #FDC913;
-border-radius: 10%;
-}
-
 `;
 
 
@@ -341,7 +509,6 @@ const hamurFiyatlari = {
   orta: 50,
   kalın: 100
 };
-
 
 export default function Form({setLiftFormData}) {
 
@@ -458,11 +625,12 @@ export default function Form({setLiftFormData}) {
     <>
     <Header>
       <h1>Teknolojik Yemekler</h1>
-      <p>Ana Sayfa - Sipariş Oluştur</p>
+      <img src='./src/assets/Iteration-2-assets/pictures/form-banner.png'/>
     </Header>
 
     <Formsection>
     <PizzaBilgi>
+        <p>Anasayfa - Sipariş Oluştur</p>
         <h4> 
         Position Absolute Acı Pizza
         </h4>
@@ -479,11 +647,14 @@ export default function Form({setLiftFormData}) {
         Küçük bir pizzaya bazen pizetta denir.
         </p>
     </PizzaBilgi>
-
+    </Formsection>
+    <Form2>
     <Boyutvehamur>
+    
     <Boyutsec data-cy="boyut-input">
     <h3>Boyut Seç <span>*</span></h3>
-    <div >
+    <div className='deneme'>
+    <div>
           <input
             type="radio"
             id="kucuk"
@@ -491,7 +662,7 @@ export default function Form({setLiftFormData}) {
             value="kucuk"
             onChange={handleChange}
           />
-          <label htmlFor="kucuk">Küçük</label>
+          <label htmlFor="kucuk">S</label>
         </div>
         <div>
           <input
@@ -501,7 +672,7 @@ export default function Form({setLiftFormData}) {
             value="orta"
             onChange={handleChange}
           />
-          <label htmlFor="orta">Orta</label>
+          <label htmlFor="orta">M</label>
         </div>
         <div>
           <input
@@ -511,7 +682,8 @@ export default function Form({setLiftFormData}) {
             value="buyuk"
             onChange={handleChange}
           />
-          <label htmlFor="buyuk">Büyük</label>
+          <label htmlFor="buyuk">L</label>
+        </div>
         </div>
     </Boyutsec>
 
@@ -522,14 +694,13 @@ export default function Form({setLiftFormData}) {
       value={formData.hamur}
       onChange={handleChange}
       >
-        <option value="" >Hamur Kalınlığı</option>
+        <option value="baslık" >-Hamur Kalınlığı Seç- </option>
         <option value="ince">İnce Hamur</option>
         <option value="orta">Orta Hamur</option>
         <option value="kalın">Kalın Hamur</option>
       </Select>
     </Hamursec>
     </Boyutvehamur>
-
     <Ekmalzemeler>
     <div className='ekmalzeme-bilgi'>
         <h3>Ek Malzemeler</h3>
@@ -538,6 +709,7 @@ export default function Form({setLiftFormData}) {
     <Malzemesecim data-cy="malzeme-input" onSubmit={handleSubmit}>
       <label className='malzeme'>
         <input
+
           type="checkbox"
           value="Pepperoni"
           name="malzeme"
@@ -620,7 +792,6 @@ export default function Form({setLiftFormData}) {
       {errors.malzeme && <FormFeedback>{errorMessages.malzeme}</FormFeedback>}
     </Malzemesecim>
     </Ekmalzemeler>
-
     <Isım >
     
     <h3>İsim</h3>
@@ -629,6 +800,7 @@ export default function Form({setLiftFormData}) {
     id="isim"
     name="isim"
     value={formData.isim}
+    placeholder='İsminizi giriniz!'
     onChange={handleChange}
     type="text"
     invalid={errors.isim ? "true" : "false"}
@@ -636,7 +808,6 @@ export default function Form({setLiftFormData}) {
     {errors.isim.length > 0 && <p>{errors.isim}</p>}
    
     </Isım>
-
     <Siparisnotu onSubmit={handleSubmit} className='text-area'>
     <h3>Sipariş Notu</h3>  
         <textarea
@@ -649,7 +820,6 @@ export default function Form({setLiftFormData}) {
           value={formData.not}
         /> 
     </Siparisnotu>
-
     <Hesapozeti>
       
     <div className='ekle'>
@@ -693,7 +863,53 @@ export default function Form({setLiftFormData}) {
     <button onClick={handleSubmit} type="submit" data-cy="siparis-input" className='siparis-button' disabled={!isValid}>Sipariş Ver</button>
     </Siparisver>
     </Hesapozeti>
-    </Formsection>
+    </Form2>
+    
+    
+    <ContainerTwo>
+        <div className='main-container'>
+            <div className='tekno-yemek'>
+                <h1>Teknolojik<br/> yemekler</h1>
+                <div className='iletisim'>
+                    <div className='iletisim-icon'>
+                    <img src='./src/assets/Iteration-2-assets/footer-icon/icon-1.png' />
+                    <p>341 Londonderry Road,<br/>Istabul Türkiye </p>
+                    </div>
+                    <div className='iletisim-icon'>
+                    <img src='./src/assets/Iteration-2-assets/footer-icon/icon-2.png'></img>
+                    <p>aciktim@teknolojikyemekler.com</p>
+                    </div>
+                    <div className='iletisim-icon'>
+                    <img src='./src/assets/Iteration-2-assets/footer-icon/icon-3.png'></img>
+                    <p>+90 216 123 45 67</p>
+                    </div>
+                </div>
+            </div>
+            <div className='hot-menu'>
+            <h4>Hot Menu</h4>
+            <div className='pizza-burger'>
+                <p>Terminal Pizza</p>
+                <p>5 Kişilik Hackathlon Pizza</p>
+                <p>useEffect Tavuklu Pizza</p>
+                <p>Beyaz Console Frosty</p>
+                <p>Testler Geçti Mutlu Burger</p>
+                <p>Position Absolute Acı Burger</p>
+            </div>
+
+            </div>
+            <div className='instagram'>
+            <h4>Instagram</h4>
+            <div className='resimler'>
+                <img src='./src/assets/Iteration-2-assets/instagram/li-0.png'></img>
+                <img src='./src/assets/Iteration-2-assets/instagram/li-1.png'></img>
+                <img src='./src/assets/Iteration-2-assets/instagram/li-2.png'></img>
+                <img src='./src/assets/Iteration-2-assets/instagram/li-3.png'></img>
+                <img src='./src/assets/Iteration-2-assets/instagram/li-4.png'></img>
+                <img src='./src/assets/Iteration-2-assets/instagram/li-5.png'></img>
+            </div>
+            </div>
+        </div>
+    </ContainerTwo>
     </>
   );
 }

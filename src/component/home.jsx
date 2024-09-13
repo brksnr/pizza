@@ -2,6 +2,96 @@ import React from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import styled from "styled-components";
 
+
+const ContainerTwo = styled.section`
+max-width: 100%;
+max-width: 100%;
+display: flex;
+justify-content: center;
+background: #1A1A1A;
+
+.main-container{
+    width: 50%;
+    margin: 3rem 0rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    
+}
+.tekno-yemek{
+
+color:white;
+margin-bottom: 5rem;
+h1{
+    font-family: Londrina Solid;
+font-size: 50px;
+font-weight: 400;
+line-height: 50px;
+text-align: left;
+padding-bottom: 2rem;
+}
+p{
+    font-family: Barlow;
+font-size: 18px;
+font-weight: 400;
+line-height: 32.4px;
+text-align: left;
+
+}
+.iletisim-icon {
+    display: flex;
+  align-items: center;
+}
+.iletisim {
+    img {
+        margin-right: 10px;
+    }
+  }
+}
+.hot-menu{
+    
+    color:white;
+    margin-top: 2rem;
+    h4{
+        font-family: Barlow;
+font-size: 24px;
+font-weight: 500;
+line-height: 32.11px;
+text-align: left;
+padding-bottom: 2rem;
+    }
+    p{
+        font-family: Barlow;
+font-size: 18px;
+font-weight: 400;
+line-height: 32.4px;
+text-align: left;
+
+    }
+}
+.instagram{
+    
+    color:white;
+    margin: 2rem 0rem 2rem;
+    row-gap: 1rem;
+    h4 {
+        font-family: Barlow;
+font-size: 24px;
+font-weight: 500;
+line-height: 32.11px;
+text-align: left;
+padding-bottom: 1rem;
+
+
+    }
+    
+    .resimler{
+       display: grid;
+       grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+}
+`
+
 const Header = styled.section`
     padding: 391px;
     background-image: url("./src/assets/Iteration-1-assets/home-banner.png");
@@ -299,7 +389,7 @@ gap: 1rem;
      display: flex;
      width: 73%;
      justify-content: space-between;
-     
+     padding-bottom: 4rem;
     .tpu-p {
       width: 270.67px;
 height: 29px;
@@ -440,6 +530,7 @@ return (
     <button><div className='button-content'><img src='./src/assets/Iteration-2-assets/icons/6.svg'/><h5>Gazlı İçecek</h5></div></button>
     </HeroUc>
     <HeroDort>
+      
     <UcluPaket>
     <div>
     <img src='./src/assets/Iteration-2-assets/pictures/food-1.png'/>
@@ -476,6 +567,51 @@ return (
     </div>
     </UcluPaket>
     </HeroDort>
+
+    <ContainerTwo>
+        <div className='main-container'>
+            <div className='tekno-yemek'>
+                <h1>Teknolojik<br/> yemekler</h1>
+                <div className='iletisim'>
+                    <div className='iletisim-icon'>
+                    <img src='./src/assets/Iteration-2-assets/footer-icon/icon-1.png' />
+                    <p>341 Londonderry Road,<br/>Istabul Türkiye </p>
+                    </div>
+                    <div className='iletisim-icon'>
+                    <img src='./src/assets/Iteration-2-assets/footer-icon/icon-2.png'></img>
+                    <p>aciktim@teknolojikyemekler.com</p>
+                    </div>
+                    <div className='iletisim-icon'>
+                    <img src='./src/assets/Iteration-2-assets/footer-icon/icon-3.png'></img>
+                    <p>+90 216 123 45 67</p>
+                    </div>
+                </div>
+            </div>
+            <div className='hot-menu'>
+            <h4>Hot Menu</h4>
+            <div className='pizza-burger'>
+                <p>Terminal Pizza</p>
+                <p>5 Kişilik Hackathlon Pizza</p>
+                <p>useEffect Tavuklu Pizza</p>
+                <p>Beyaz Console Frosty</p>
+                <p>Testler Geçti Mutlu Burger</p>
+                <p>Position Absolute Acı Burger</p>
+            </div>
+
+            </div>
+            <div className='instagram'>
+            <h4>Instagram</h4>
+            <div className='resimler'>
+                <img src='./src/assets/Iteration-2-assets/instagram/li-0.png'></img>
+                <img src='./src/assets/Iteration-2-assets/instagram/li-1.png'></img>
+                <img src='./src/assets/Iteration-2-assets/instagram/li-2.png'></img>
+                <img src='./src/assets/Iteration-2-assets/instagram/li-3.png'></img>
+                <img src='./src/assets/Iteration-2-assets/instagram/li-4.png'></img>
+                <img src='./src/assets/Iteration-2-assets/instagram/li-5.png'></img>
+            </div>
+            </div>
+        </div>
+    </ContainerTwo>
     </>
 )
 };
