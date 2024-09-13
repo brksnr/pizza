@@ -21,7 +21,6 @@ max-width: fit-content;
 const Siparisalindi = styled.div`
 
 display: flex;
-border: 1px solid black;
 flex-direction: column;
 align-items: center;
 justify-content: center;
@@ -121,12 +120,28 @@ background: #1A1A1A;
     margin: 3rem 0rem 2rem;
     display: flex;
     justify-content: space-between;
-    border:1px solid orange;
+    
 }
 .tekno-yemek{
-border: 1px solid white;
+
 color:white;
 margin-bottom: 5rem;
+h1{
+    font-family: Londrina Solid;
+font-size: 50px;
+font-weight: 400;
+line-height: 50px;
+text-align: left;
+padding-bottom: 2rem;
+}
+p{
+    font-family: Barlow;
+font-size: 18px;
+font-weight: 400;
+line-height: 32.4px;
+text-align: left;
+
+}
 .iletisim-icon {
     display: flex;
   align-items: center;
@@ -138,14 +153,41 @@ margin-bottom: 5rem;
   }
 }
 .hot-menu{
-    border: 1px solid orange;
+    
     color:white;
     margin-top: 2rem;
+    h4{
+        font-family: Barlow;
+font-size: 24px;
+font-weight: 500;
+line-height: 32.11px;
+text-align: left;
+padding-bottom: 2rem;
+    }
+    p{
+        font-family: Barlow;
+font-size: 18px;
+font-weight: 400;
+line-height: 32.4px;
+text-align: left;
+
+    }
 }
 .instagram{
-    border: 1px solid blue;
+    
     color:white;
     margin: 2rem 0rem 2rem;
+    row-gap: 1rem;
+    h4 {
+        font-family: Barlow;
+font-size: 24px;
+font-weight: 500;
+line-height: 32.11px;
+text-align: left;
+padding-bottom: 1rem;
+
+
+    }
     
     .resimler{
        display: grid;
