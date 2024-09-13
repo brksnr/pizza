@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const ContainerTwo = styled.section`
 max-width: 100%;
@@ -422,7 +422,7 @@ justify-content: space-between;
 width: 100%;
 height: 20%;
 background: #FDC913;
-border-radius: .3rem;
+border-radius: .4rem;
 border: none;
 }
 .ekle p {
@@ -495,7 +495,7 @@ let errorMessages = {
   isim:"en az 3 karakter giriniz",
   boyut: "Pizza boyutu seçiniz",
   hamur: "Hamur kalınlığı seçiniz",
-  malzeme: "En az 3 malzeme seçiniz",
+  malzeme: "En az 4 malzeme seçiniz",
 };
 
 const boyutFiyatlari = {
@@ -522,8 +522,6 @@ export default function Form({setLiftFormData}) {
     toplam: 0,
     malzemeTutarı:0
   }
-
-  
   const [ formData, setFormData] = useState(initialForm);
   const [ errors, setErrors ] = useState({
     isim: "",
@@ -533,10 +531,8 @@ export default function Form({setLiftFormData}) {
   })
   const [isValid, setIsValid] = useState(false);
   const [malzemeTutari, setMalzemeTutari] = useState(0)
-  const [toplamFiyat, setToplamFiyat] = useState(85.50);
-  
+  const [toplamFiyat, setToplamFiyat] = useState(85.50);  
   const herMalzeme = 5;
-
   const onay = useHistory();
 
   const sayiyiArtir = () => {
@@ -554,13 +550,10 @@ export default function Form({setLiftFormData}) {
     const { name, value, type, checked } = event.target;
     if (type === 'checkbox') {
       const updatedMalzemeler = checked ? formData.malzeme.includes(value)  ? formData.malzeme : [...formData.malzeme, value]  : formData.malzeme.filter(malzeme => malzeme !== value);
-  
       setFormData({...formData, malzeme: updatedMalzemeler});
 
       setMalzemeTutari(updatedMalzemeler.length * herMalzeme);
- 
-
-    } else if (name==="isim") {
+    }  else if (name==="isim") {
         if(value.trim().length <= 3) {
           
           setErrors({...errors, isim : errorMessages.isim})
@@ -601,6 +594,30 @@ export default function Form({setLiftFormData}) {
     
   }, [formData.boyut, formData.hamur, malzemeTutari]);
 
+
+  useEffect(()=> {
+    if(formData.malzeme.length < 4) {
+      setErrors({...errors, malzeme:errorMessages.malzeme})
+    } else {
+      setErrors({...errors, malzeme:""})
+    }
+  }, [formData])
+
+  useEffect(()=>{
+    if(formData.boyut === "") {
+      setErrors({...errors, boyut:errorMessages.boyut})
+    } else {
+      setErrors({...errors, boyut:""})
+    }
+  }, [formData.boyut])
+
+  useEffect(()=>{
+    if(formData.hamur === "") {
+      setErrors({...errors, hamur:errorMessages.hamur})
+    } else {
+      setErrors({...errors, hamur:""})
+    }
+  }, [formData.hamur])
   
   function handleSubmit(event) {
     
@@ -614,20 +631,16 @@ export default function Form({setLiftFormData}) {
         setLiftFormData(response.data);
       })
       .catch(function (error) {
-        console.error("adasdasdadas:", error);
+        console.error(error);
       });
   }
 
-
   return (
-   
-
     <>
     <Header>
       <h1>Teknolojik Yemekler</h1>
       <img src='./src/assets/Iteration-2-assets/pictures/form-banner.png'/>
     </Header>
-
     <Formsection>
     <PizzaBilgi>
         <p>Anasayfa - Sipariş Oluştur</p>
@@ -649,8 +662,7 @@ export default function Form({setLiftFormData}) {
     </PizzaBilgi>
     </Formsection>
     <Form2>
-    <Boyutvehamur>
-    
+    <Boyutvehamur>  
     <Boyutsec data-cy="boyut-input">
     <h3>Boyut Seç <span>*</span></h3>
     <div className='deneme'>
@@ -683,10 +695,10 @@ export default function Form({setLiftFormData}) {
             onChange={handleChange}
           />
           <label htmlFor="buyuk">L</label>
+          {errors.boyut.length > 0 && <p>{errorMessages.boyut}</p>}
         </div>
         </div>
     </Boyutsec>
-
     <Hamursec data-cy="hamur-input">
     <h3>Hamur Seç <span>*</span></h3>
       <Select 
@@ -699,6 +711,7 @@ export default function Form({setLiftFormData}) {
         <option value="orta">Orta Hamur</option>
         <option value="kalın">Kalın Hamur</option>
       </Select>
+      {errors.hamur.length > 0 && <p>{errorMessages.hamur}</p>}
     </Hamursec>
     </Boyutvehamur>
     <Ekmalzemeler>
@@ -789,7 +802,7 @@ export default function Form({setLiftFormData}) {
         />
         Sarımsak
       </label>
-      {errors.malzeme && <FormFeedback>{errorMessages.malzeme}</FormFeedback>}
+      {errors.malzeme.length > 0 && <p>{errorMessages.malzeme}</p>}
     </Malzemesecim>
     </Ekmalzemeler>
     <Isım >
@@ -820,8 +833,7 @@ export default function Form({setLiftFormData}) {
           value={formData.not}
         /> 
     </Siparisnotu>
-    <Hesapozeti>
-      
+    <Hesapozeti>    
     <div className='ekle'>
       <button
       onSubmit={handleSubmit}
@@ -842,8 +854,7 @@ export default function Form({setLiftFormData}) {
       value={formData.adet}
       type="button"
       >+</button>
-    </div>
-    
+    </div>   
     <Siparisver onSubmit={handleSubmit}>
     <div className='siparis-container'>
     <div className='siparis-toplamı'>
@@ -863,9 +874,7 @@ export default function Form({setLiftFormData}) {
     <button onClick={handleSubmit} type="submit" data-cy="siparis-input" className='siparis-button' disabled={!isValid}>Sipariş Ver</button>
     </Siparisver>
     </Hesapozeti>
-    </Form2>
-    
-    
+    </Form2>  
     <ContainerTwo>
         <div className='main-container'>
             <div className='tekno-yemek'>
